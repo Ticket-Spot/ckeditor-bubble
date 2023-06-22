@@ -19,6 +19,8 @@ import List from '@ckeditor/ckeditor5-list/src/list.js';
 import Paragraph from '@ckeditor/ckeditor5-paragraph/src/paragraph.js';
 import Style from '@ckeditor/ckeditor5-style/src/style.js';
 import Underline from '@ckeditor/ckeditor5-basic-styles/src/underline.js';
+import MarginSelection from './marginSelection';
+import PaddingSelection from './paddingSelection';
 
 class Editor extends BalloonEditor {}
 
@@ -39,7 +41,9 @@ Editor.builtinPlugins = [
 	List,
 	Paragraph,
 	Style,
-	Underline
+	Underline,
+	MarginSelection,
+	PaddingSelection
 ];
 
 // Editor configuration.
