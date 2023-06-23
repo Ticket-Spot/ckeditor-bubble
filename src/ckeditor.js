@@ -1,7 +1,3 @@
-/**
- * @license Copyright (c) 2014-2023, CKSource Holding sp. z o.o. All rights reserved.
- * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
- */
 import BalloonEditor from '@ckeditor/ckeditor5-editor-balloon/src/ballooneditor.js';
 import Alignment from '@ckeditor/ckeditor5-alignment/src/alignment.js';
 import Bold from '@ckeditor/ckeditor5-basic-styles/src/bold.js';
@@ -19,53 +15,56 @@ import List from '@ckeditor/ckeditor5-list/src/list.js';
 import Paragraph from '@ckeditor/ckeditor5-paragraph/src/paragraph.js';
 import Style from '@ckeditor/ckeditor5-style/src/style.js';
 import Underline from '@ckeditor/ckeditor5-basic-styles/src/underline.js';
-import MarginSelection from './marginSelection';
-import PaddingSelection from './paddingSelection';
+import marginSelection from './marginSelection';
+import paddingSelection from './paddingSelection';
 
 class Editor extends BalloonEditor {}
 
 // Plugins to include in the build.
 Editor.builtinPlugins = [
-	Alignment,
-	Bold,
-	Essentials,
-	FontBackgroundColor,
-	FontColor,
-	FontFamily,
-	FontSize,
-	GeneralHtmlSupport,
-	Heading,
-	Indent,
-	Italic,
-	Link,
-	List,
-	Paragraph,
-	Style,
-	Underline,
-	MarginSelection,
-	PaddingSelection
+  Alignment,
+  Bold,
+  Essentials,
+  FontBackgroundColor,
+  FontColor,
+  FontFamily,
+  FontSize,
+  GeneralHtmlSupport,
+  Heading,
+  Indent,
+  Italic,
+  Link,
+  List,
+  Paragraph,
+  Style,
+  Underline,
+  marginSelection,
+  paddingSelection
 ];
 
 // Editor configuration.
 Editor.defaultConfig = {
-	toolbar: {
-		items: [
-			'heading',
-			'|',
-			'bold',
-			'italic',
-			'link',
-			'bulletedList',
-			'numberedList',
-			'|',
-			'outdent',
-			'indent',
-			'|',
-			'undo',
-			'redo'
-		]
-	},
-	language: 'en'
+  toolbar: {
+    items: [
+      'heading',
+      '|',
+      'bold',
+      'italic',
+      'link',
+      'bulletedList',
+      'numberedList',
+      '|',
+      'outdent',
+      'indent',
+      '|',
+      'undo',
+      'redo',
+      '|',
+      'marginSelection',
+      'paddingSelection'
+    ]
+  },
+  language: 'en'
 };
 
 export default Editor;
