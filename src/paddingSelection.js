@@ -2,6 +2,9 @@ import Plugin from '@ckeditor/ckeditor5-core/src/plugin';
 import { addListToDropdown, createDropdown } from '@ckeditor/ckeditor5-ui/src/dropdown/utils';
 
 export default class PaddingSelection extends Plugin {
+  static get pluginName() {
+		return 'PaddingSelection';
+	}
   init() {
     const editor = this.editor;
     const t = editor.t;
