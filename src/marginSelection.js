@@ -1,20 +1,26 @@
 import Plugin from '@ckeditor/ckeditor5-core/src/plugin';
-import { addListToDropdown, createDropdown } from '@ckeditor/ckeditor5-ui/src/dropdown/utils';
+import { Collection } from '@ckeditor/ckeditor5-utils/src';
+import { Model, createDropdown, addListToDropdown } from '@ckeditor/ckeditor5-ui/src';
+
+import marginIcon from './marginSelection.svg';
 
 export default class MarginSelection extends Plugin {
   static get pluginName() {
-		return 'MarginSelection';
-	}
+    return 'marginSelection';
+  }
+
   init() {
     const editor = this.editor;
     const t = editor.t;
 
+    const command = editor.commands.get('marginSelection');
+
     // Define the margin options to display in the dropdown
     const marginOptions = [
-      { model: '0px', view: '0px' },
-      { model: '5px', view: '5px' },
-      { model: '10px', view: '10px' },
-      { model: '15px', view: '15px' },
+      { value: '0px', label: '0px', icon: marginIcon },
+      { value: '5px', label: '5px', icon: marginIcon },
+      { value: '10px', label: '10px', icon: marginIcon },
+      { value: '15px', label: '15px', icon: marginIcon },
       // Add more margin options as needed
     ];
 
@@ -22,25 +28,23 @@ export default class MarginSelection extends Plugin {
     editor.ui.componentFactory.add('marginSelection', locale => {
       const dropdownView = createDropdown(locale);
 
-      // Populate the dropdown with margin options
-      addListToDropdown(dropdownView, marginOptions);
+      addListToDropdown(dropdownView, () => prepareListOptions(marginOptions, command), {
+        role: 'menu',
+        ariaLabel: 'Margin'
+      });
 
-      // Execute the 'marginSelection' command when an option is selected
-      dropdownView.on('execute', event => {
-        editor.execute('marginSelection', { value: event.source.commandParam });
+      this.listenTo(dropdownView, 'execute', evt => {
+        editor.execute(evt.source.commandName, { value: evt.source.commandParam });
+        editor.editing.view.focus();
       });
 
       // Set the label for the dropdown button
       dropdownView.buttonView.set({
         label: t('Margin'),
         tooltip: true,
-        withText: true,
-      });
-
-      // Enable the dropdown when the editor is ready
-      editor.on('ready', () => {
-        editor.ui.getEditableElement().parentElement.insertBefore(dropdownView.element, editor.ui.view.toolbar.element);
-        dropdownView.render();
+        withText: false,
+        isToggleable: true,
+        icon: marginIcon, // Set the icon for the dropdown button
       });
 
       return dropdownView;
@@ -48,7 +52,11 @@ export default class MarginSelection extends Plugin {
 
     // Register the 'marginSelection' command handler
     editor.commands.add('marginSelection', {
+      value: null, // Add an observable 'value' property to the command
       exec: (editor, options) => {
+        // Update the 'value' property of the command
+        this.value = options.value;
+
         editor.model.change(writer => {
           const selectedElement = editor.model.document.selection.getSelectedElement();
 
@@ -61,4 +69,30 @@ export default class MarginSelection extends Plugin {
       },
     });
   }
+}
+
+function prepareListOptions(options, command) {
+  const itemDefinitions = new Collection();
+
+  console.log('options', options)
+  for (const option of options) {
+    const def = {
+      type: 'button',
+      model: new Model({
+        commandName: 'marginSelection',
+        commandParam: option.value,
+        label: option.label,
+        role: 'menuitemradio',
+        withText: true
+      })
+    };
+
+    def.model.bind('isOn').to(command, 'value', value => {
+      return value === option.value;
+    });
+
+    itemDefinitions.add(def);
+  }
+
+  return itemDefinitions;
 }
