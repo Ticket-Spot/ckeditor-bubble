@@ -15,6 +15,13 @@ import List from '@ckeditor/ckeditor5-list/src/list.js';
 import Paragraph from '@ckeditor/ckeditor5-paragraph/src/paragraph.js';
 import Style from '@ckeditor/ckeditor5-style/src/style.js';
 import Underline from '@ckeditor/ckeditor5-basic-styles/src/underline.js';
+import Image from '@ckeditor/ckeditor5-image/src/image.js';
+import ImageCaption from '@ckeditor/ckeditor5-image/src/imagecaption.js';
+import ImageResize from '@ckeditor/ckeditor5-image/src/imageresize.js';
+import ImageStyle from '@ckeditor/ckeditor5-image/src/imagestyle.js';
+import ImageToolbar from '@ckeditor/ckeditor5-image/src/imagetoolbar.js';
+import ImageUpload from '@ckeditor/ckeditor5-image/src/imageupload.js';
+import LinkImage from '@ckeditor/ckeditor5-link/src/linkimage.js';
 import marginSelection from './marginSelection';
 import paddingSelection from './paddingSelection';
 
@@ -25,6 +32,14 @@ Editor.builtinPlugins = [
   Alignment,
   Bold,
   Essentials,
+	Image,
+	ImageCaption,
+	ImageResize,
+	ImageStyle,
+	ImageToolbar,
+	ImageUpload,
+	Link,
+	LinkImage,
   FontBackgroundColor,
   FontColor,
   FontFamily,
@@ -38,8 +53,8 @@ Editor.builtinPlugins = [
   Paragraph,
   Style,
   Underline,
-  marginSelection,
-  paddingSelection
+//   marginSelection,
+//   paddingSelection
 ];
 
 // Editor configuration.
@@ -61,10 +76,20 @@ Editor.defaultConfig = {
       'redo',
       '|',
       'marginSelection',
-      'paddingSelection'
+      'paddingSelection',
     ]
   },
-  language: 'en'
+  language: 'en',
+  	image: {
+		toolbar: [
+			'imageTextAlternative',
+			'toggleImageCaption',
+			'imageStyle:inline',
+			'imageStyle:block',
+			'imageStyle:side',
+			'linkImage'
+		]
+	}
 };
 
 export default Editor;
