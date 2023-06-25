@@ -35,6 +35,7 @@
     "build": "webpack --mode production"
   },
   "dependencies": {
-    "@ckeditor/ckeditor5-image": "^38.0.1"
+    "@ckeditor/ckeditor5-image": "^38.0.1",
+    "@ckeditor/ckeditor5-typing": "^38.0.1"
   }
 }

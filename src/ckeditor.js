@@ -22,6 +22,8 @@ import ImageStyle from '@ckeditor/ckeditor5-image/src/imagestyle.js';
 import ImageToolbar from '@ckeditor/ckeditor5-image/src/imagetoolbar.js';
 import ImageUpload from '@ckeditor/ckeditor5-image/src/imageupload.js';
 import LinkImage from '@ckeditor/ckeditor5-link/src/linkimage.js';
+import TextTransformation from '@ckeditor/ckeditor5-typing/src/texttransformation.js';
+
 import marginSelection from './marginSelection';
 import paddingSelection from './paddingSelection';
 
@@ -53,6 +55,7 @@ Editor.builtinPlugins = [
   Paragraph,
   Style,
   Underline,
+  TextTransformation
 //   marginSelection,
 //   paddingSelection
 ];
@@ -61,6 +64,8 @@ Editor.builtinPlugins = [
 Editor.defaultConfig = {
   toolbar: {
     items: [
+		'Alignment',
+		'imageUpload',
       'heading',
       '|',
       'bold',
